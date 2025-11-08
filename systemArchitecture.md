@@ -136,7 +136,35 @@ This reflection reshaped the approach to product discovery — emphasizing **emp
 - Integration with **voice assistants** for hands-free guidance.  
 - **Offline AI mode** for low-data environments.  
 - Expansion to other African transit networks.  
-- **User safety module** (SOS & route sharing).  
+- **User safety module** (SOS & route sharing).
+
+# 10. System Architecture Diagram
+
+The diagram below illustrates how the **Route Navigator System** components interact — from user input to data processing and feedback delivery.
+
+flowchart TD
+
+%% USER INTERACTION
+U[👤 User<br>(Commuter using mobile app)] -->|Input Destination / Voice Command| UI
+
+%% FRONTEND
+UI[🪟 User Interface<br>(React Native App)] -->|HTTP/HTTPS Requests| API[Application Server<br>(Node.js / Express.js)]
+
+%% BACKEND SERVICES
+API -->|Query & Compute Route| ROUTE[Route Mapping Module<br>(Mapbox / Google Maps API)]
+API -->|Send / Receive Data| AI[AI & NLP Engine<br>(Dialogflow / Python Model)]
+API -->|Fetch / Store Data| DB[(Database<br>MongoDB / PostgreSQL)]
+API -->|Send Notifications| NOTIF[Notification Service<br>(Firebase / OneSignal)]
+
+%% ROUTE AND DATA SOURCES
+ROUTE -->|Fetch Traffic, Fare & Map Data| EXT[External APIs<br>(Transport, Fare, Traffic Sources)]
+DB --> LOGS[Analytics & Logs<br>(User Feedback, Trip History)]
+
+%% USER FEEDBACK LOOP
+AI -->|Response: Guidance / Alerts| UI
+NOTIF -->|Push Alerts / Bus Stop Notifications| U
+UI -->|Feedback / Rating| API
+API -->|Log Performance Data| LOGS
 
 ## 9. Summary
 **Route Navigator** represents a new standard for commuter guidance in Nigeria’s public transport ecosystem.  
